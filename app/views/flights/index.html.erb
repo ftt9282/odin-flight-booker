@@ -1,0 +1,40 @@
+<h1>Official Flight Selector</h1>
+<%= form_tag('/', method: :get) do %>
+  <div>
+    <%= select_tag :start_airport_id, options_for_select(@arrivals) %>
+    <%= select_tag :finish_airport_id, options_for_select(@departures) %>
+  </div>
+  <div>
+    <%= select_tag :start_date, options_for_select(@dates) %>
+  </div>
+  <div>
+    <%= select_tag :passenger_count, options_for_select([1,2,3,4]) %>
+  </div>
+  <%= submit_tag "Submit" %>
+<% end %>
+
+<% if !@found_flights.empty? %>
+  <hr>
+  <%= form_tag('bookings/new', method: :get) do %>
+    <table>
+      <tr>
+        <th>To</th>
+        <th>From</th>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Book Flight</th>
+      </tr>
+      <% @found_flights.each do |flight| %>
+        <tr>
+          <td><%= flight.from_airport.code %></td>
+          <td><%= flight.to_airport.code %></td>
+          <td><%= flight.start_date %></td>
+          <td><%= flight.duration %> hours</td>
+          <td><%= radio_button_tag(:flight_id, flight.id)%></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= hidden_field_tag :passenger_count, params[:passenger_count] %>
+    <%= submit_tag "Continue" %>
+  <% end %>
+<% end %>

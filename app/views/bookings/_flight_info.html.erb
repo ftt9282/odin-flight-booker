@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>To</th>
+    <th>From</th>
+    <th>Date</th>
+    <th>Duration</th>
+  </tr>
+  <tr>
+    <td><%= @flight.from_airport.code %></td>
+    <td><%= @flight.to_airport.code %></td>
+    <td><%= @flight.start_date %></td>
+    <td><%= @flight.duration %> hours</td>
+  </tr>
+</table>

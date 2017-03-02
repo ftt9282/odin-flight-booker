@@ -1,0 +1,18 @@
+<h1>Flight: <%= @flight.from_airport.code %> => <%= @flight.to_airport.code %></h1>
+<p>Number of passengers: <%= params[:passenger_count] %></p>
+<%= render 'flight_info' %>
+<br />
+<%= form_for @booking do |f| %>
+  <%= f.hidden_field :flight_id, :value => @flight.id %>
+  <%= f.fields_for :passengers do |passenger_form| %>
+    <div>
+    <p>Passenger #<%= passenger_form.index + 1 %></p>
+    <%= passenger_form.label :name %>
+    <%= passenger_form.text_field :name %>
+
+    <%= passenger_form.label :email %>
+    <%= passenger_form.text_field :email %>
+    </div>
+  <% end %>
+  <%= f.submit "Book" %>
+<% end %>
